@@ -22,8 +22,8 @@ def get_juice_selection():
         print("Then press Enter when you are ready.\n")
 
         juice_selection = input("Enter your order here:\n")
-        if len(juice_selection) == 1:
-            print(f'You entered juice number: {juice_selection}')
+        if validate_data(juice_selection):
+            print("Thanks for your order")
             break
     return juice_selection
 
@@ -36,8 +36,8 @@ def get_size_selection():
         print("Then press Enter when you are ready.\n")
 
         size_selection = input("Enter your order here:\n")
-        if len(size_selection) == 1:
-            print(f'You entered size: {size_selection}')
+        if validate_data(size_selection):
+            print("Thanks for your order")
             break
     return size_selection
 
@@ -50,15 +50,24 @@ def get_quantity():
         print("Then press Enter when you are ready.\n")
 
         quantity = input("Enter your order here:\n")
-        if len(quantity) <= 10:
-            print(f'You entered size: {quantity}')
+        if validate_data(quantity):
+            print("Thanks for your order")
             break
     return quantity
 
-
-
+def validate_data(values):
+    """
+    This function checks if the values provided by the user, in the functions
+    get_juice_selection, get_size_selection and get_quanity meet the
+    requirements in the values_required. Also validates if the format
+    is correct. If any of the requirements is not fulfilled it throws
+    an error to inform the user.
+    """
+    print(values)
+        
 
 
 get_juice_selection()
 get_size_selection()
 get_quantity()
+validate_data()
