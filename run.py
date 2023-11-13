@@ -108,7 +108,7 @@ def validate_quantity_data(values):
             return True
         else:
             raise ValueError(
-                f"Please enter a number (1-5)\n you entered {quantity}")
+                f"Please enter a number (1-10)\n you entered {quantity}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again\n")
         return False
