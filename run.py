@@ -44,7 +44,7 @@ def validate_juice_data(values):
             return True
         else:
             raise ValueError(
-                f"Please enter a number (1-5)\n you entered {len(values)}")
+                f"Please enter a number (1-5)\n you entered {int(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again\n")
         return False
@@ -76,7 +76,7 @@ def validate_size_data(values):
             return True
         else:
             raise ValueError(
-                f"Please enter size S, M or L)\n you entered {len(values)}")
+                f"Please enter size S, M or L)\n you entered {int(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again\n")
         return False
