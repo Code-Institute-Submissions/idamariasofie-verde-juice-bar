@@ -74,8 +74,28 @@ def validate_juice_data(values):
 
 def get_size_selection():
     """
-    Get size order value input from the user
+    Displays juice menu for the user to select from.
+    Get juice order value input from the user.
     """
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+    sizes = SHEET.worksheet("size")
+    data = sizes.get_all_values()
+
+    # define header names
+    col_names = data[0]
+
+    # define menu content and set width for Ingredients column
+    menu_data = data[-5:]
+    for row in menu_data:
+        if (len(row[2]) > 45):
+            last_space_index = row[2][:45].rfind(" ")
+            row[2] = row[2][:last_space_index + 1] + "\n" \
+                + row[2][last_space_index + 1:]
+
+    # print juice menu table
+    print(tabulate(menu_data, headers=col_names, tablefmt="fancy_grid") +
+          "\n")
     while True:
         print("Please enter your juice size of choice (S, M, L)")
         print("Then press Enter when you are ready.\n")
