@@ -56,7 +56,7 @@ def get_size_selection():
     while True:
         print("Please enter your juice size of choice (S, M, L)")
         print("Then press Enter when you are ready.\n")
-
+      
         size_selection = input("Enter your order here:\n")
         if validate_size_data(size_selection):
             print("Thanks for your order")
@@ -71,10 +71,14 @@ def validate_size_data(values):
     fulfilled it throws an error to inform the user.
     """
     try:
-        if len(values) != 1:
-            raise ValueError(f"Please enter 1 value you entered {len(values)}")
+        size_selection = values.upper()
+        if size_selection in ['S', 'M', 'L']:
+            return True
+        else:
+            raise ValueError(
+                f"Please enter size S, M or L)\n you entered {len(values)}")
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+        print(f"Invalid data: {e}, please try again\n")
         return False
 
 def get_quantity():
