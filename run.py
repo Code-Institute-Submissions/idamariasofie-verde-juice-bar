@@ -1,5 +1,7 @@
+import os
 import gspread
 from google.oauth2.service_account import Credentials
+from tabulate import tabulate
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -14,8 +16,29 @@ SHEET = GSPREAD_CLIENT.open('verde_juice_bar')
 
 def get_juice_selection():
     """
-    Get juice order value input from the user
+    Displays juice menu for the user to select from.
+    Get juice order value input from the user.
     """
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+    juices = SHEET.worksheet("menu")
+    data = juices.get_all_values()
+
+    # define header names
+    col_names = data[0]
+
+    # define menu content and set width for Ingredients column
+    menu_data = data[-5:]
+    for row in menu_data:
+        if (len(row[2]) > 45):
+            last_space_index = row[2][:45].rfind(" ")
+            row[2] = row[2][:last_space_index + 1] + "\n" \
+                + row[2][last_space_index + 1:]
+
+    # print juice menu table
+    print(tabulate(menu_data, headers=col_names, tablefmt="fancy_grid") +
+          "\n")
+
     while True:
         print("Welcome to The Juice Bar's order system")
         print("Please enter your juice of choice (1-5)")
