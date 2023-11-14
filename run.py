@@ -186,6 +186,13 @@ def main():
     """
     Run all program functions
     """
+    class JuiceOrder:
+        def __init__(self, juice, size, quantity, price):
+            self.juice.selection = juice
+            self.size.selection = size
+            self.quantity.selection = quantity
+            self.price.selection = price
+
     juice = get_juice_selection()
     size = get_size_selection()
     quantity = get_quantity()
