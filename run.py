@@ -156,7 +156,7 @@ def validate_quantity_data(values):
         print(f"Invalid data: {e}, please try again\n")
         return False
 
-def update_order_worksheet(juice, size):
+def update_order_worksheet(juice, size, quantity):
     """
     Update order worksheet with juice selection,
     add new row with the list data provided
@@ -166,6 +166,7 @@ def update_order_worksheet(juice, size):
     order = []
     order.append(juice)
     order.append(size)
+    order.append(quantity)
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
@@ -173,4 +174,5 @@ juice = get_juice_selection()
 size = get_size_selection()
 quantity = get_quantity()
 juice_data = [int(num) for num in juice]
-update_order_worksheet(juice, size)
+quantity_data = [int(num) for num in quantity]
+update_order_worksheet(juice, size, quantity)
