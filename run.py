@@ -100,7 +100,7 @@ def get_size_selection():
         print("Please enter your juice size of choice (S, M, L)")
         print("Then press Enter when you are ready.\n")
 
-        size_selection = input("Enter your order here:\n")   
+        size_selection = input("Enter your order here:\n")
         if validate_size_data(size_selection):
             print("Thanks for your order")
             break
@@ -170,9 +170,27 @@ def update_order_worksheet(juice, size, quantity):
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
-juice = get_juice_selection()
-size = get_size_selection()
-quantity = get_quantity()
-juice_data = [int(num) for num in juice]
-quantity_data = [int(num) for num in quantity]
-update_order_worksheet(juice, size, quantity)
+def order_summary(order_row):
+    """
+    Create a summary of the order, with juice selection, size and quantity
+    """
+    print("Calculating order summary...\n")
+    print("Your order contains:")
+    order = SHEET.worksheet("order").get_all_values()
+
+    if len(order) > 1:
+        order_row = order[-1]
+        print(order_row)
+
+def main():
+    """
+    Run all program functions
+    """
+    juice = get_juice_selection()
+    size = get_size_selection()
+    quantity = get_quantity()
+    sales_data = [int(num) for num in juice and quantity]
+    update_order_worksheet(juice, size, quantity)
+    order_summary(sales_data)
+
+main()
