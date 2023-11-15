@@ -14,6 +14,13 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('verde_juice_bar')
 
+class JuiceOrder:
+    def __init__(self, juice, size, quantity, price):
+        self.juice.selection = juice
+        self.size.selection = size
+        self.quantity.selection = quantity
+        self.price.selection = price
+
 def get_juice_selection():
     """
     Displays juice menu for the user to select from.
@@ -172,11 +179,13 @@ def update_order_worksheet(juice, size, quantity):
 
 def order_summary(order_row):
     """
-    Create a summary of the order, with juice selection, size and quantity
+    Create a summary of the order, with juice selection,
+    size, quantity and price
     """
     print("Calculating order summary...\n")
     print("Your order contains:")
     order = SHEET.worksheet("order").get_all_values()
+    print("Total price:")
 
     if len(order) > 1:
         order_row = order[-1]
@@ -186,13 +195,6 @@ def main():
     """
     Run all program functions
     """
-    class JuiceOrder:
-        def __init__(self, juice, size, quantity, price):
-            self.juice.selection = juice
-            self.size.selection = size
-            self.quantity.selection = quantity
-            self.price.selection = price
-
     juice = get_juice_selection()
     size = get_size_selection()
     quantity = get_quantity()
