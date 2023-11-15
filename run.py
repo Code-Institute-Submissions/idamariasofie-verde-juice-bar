@@ -2,7 +2,9 @@ import os
 import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
-from colorama import Fore, Back, Style
+from colorama import Fore, Back, Style 
+from termcolor import colored, cprint
+from pyfiglet import figlet_format, Figlet
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
