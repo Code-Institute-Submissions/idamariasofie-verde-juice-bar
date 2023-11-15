@@ -2,7 +2,7 @@ import os
 import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
-from colorama import Fore, Back, Style 
+from colorama import Fore, Back, Style
 from termcolor import colored, cprint
 from pyfiglet import figlet_format, Figlet
 
@@ -23,6 +23,56 @@ class JuiceOrder:
         self.size.selection = size
         self.quantity.selection = quantity
         self.price.selection = price
+
+def welcome():
+    """
+    Verde Juice bar logo to welcome user 
+    """
+    print("Welcome")
+    print(r"""
+    .------------------------------------------------------------.
+|                                                            |
+|       ,---.                       ,---,                    |
+|      /__./|            __  ,-.  ,---.'|                    |
+| ,---.;  ; |          ,' ,'/ /|  |   | :                    |
+|/___/ \  | |   ,---.  '  | |' |  |   | |   ,---.            |
+|\   ;  \ ' |  /     \ |  |   ,',--.__| |  /     \           |
+| \   \  \: | /    /  |'  :  / /   ,'   | /    /  |          |
+|  ;   \  ' ..    ' / ||  | ' .   '  /  |.    ' / |          |
+|   \   \   ''   ;   /|;  : | '   ; |:  |'   ;   /|          |
+|    \   `  ;'   |  / ||  , ; |   | '/  ''   |  / |          |
+|     :   \ ||   :    | ---'  |   :    :||   :    |          |
+|      '---"  \   \  /         \   \  /   \   \  /           |
+|              `----'           `----'     `----'            |
+|         ,---._                                             |
+|       .-- -.' \                                            |
+|       |    |   :                ,--,                       |
+|       :    ;   |         ,--, ,--.'|                       |
+|       :        |       ,'_ /| |  |,                        |
+|       |    :   :  .--. |  | : `--'_       ,---.     ,---.  |
+|       :         ,'_ /| :  . | ,' ,'|     /     \   /     \ |
+|       |    ;   ||  ' | |  . . '  | |    /    / '  /    /  ||
+|   ___ l         |  | ' |  | | |  | :   .    ' /  .    ' / ||
+| /    /\    J   ::  | : ;  ; | '  : |__ '   ; :__ '   ;   /||
+|/  ../  `..-    ,'  :  `--'   \|  | '.'|'   | '.'|'   |  / ||
+|\    \         ; :  ,      .-./;  :    ;|   :    :|   :    ||
+| \    \      ,'   `--`----'    |  ,   /  \   \  /  \   \  / |
+|  "---....--'                   ---`-'    `----'    `----'  |
+|    ,---,.                                                  |
+|  ,'  .'  \                                                 |
+|,---.' .' |             __  ,-.                             |
+||   |  |: |           ,' ,'/ /|                             |
+|:   :  :  /  ,--.--.  '  | |' |                             |
+|:   |    ;  /       \ |  |   ,'                             |
+||   :     \.--.  .-. |'  :  /                               |
+||   |   . | \__\/: . .|  | '                                |
+|'   :  '; | ," .--.; |;  : |                                |
+||   |  | ; /  /  ,.  ||  , ;                                |
+||   :   / ;  :   .'   \---'                                 |
+||   | ,'  |  ,     .-./                                     |
+|`----'     `--`---'                                         |
+'------------------------------------------------------------'
+""")
 
 def get_juice_selection():
     """
@@ -198,6 +248,7 @@ def main():
     """
     Run all program functions
     """
+    welcome()
     juice = get_juice_selection()
     size = get_size_selection()
     quantity = get_quantity()
