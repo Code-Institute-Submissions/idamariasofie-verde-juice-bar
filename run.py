@@ -28,9 +28,7 @@ def welcome():
     """
     Verde Juice bar logo to welcome user
     """
-    os.system('cls' if os.name == 'nt' else "printf '\033c'")
-    print("Welcome")
-    print(r"""
+    print(r"""\
     .------------------------------------------------------------.
 |                                                            |
 |       ,---.                       ,---,                    |
@@ -74,6 +72,8 @@ def welcome():
 |`----'     `--`---'                                         |
 '------------------------------------------------------------'
 """)
+input("Press Enter to continue...")
+os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
 def get_juice_selection():
     """
@@ -230,18 +230,6 @@ def update_order_worksheet(juice, quantity):
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
-def calculate_price(size):
-    """
-    Calculate the prices for the different juice sizes
-    to use for the order summary
-    """
-    print("Calculating price..\n")
-    size_worksheet = SHEET.worksheet("size")
-    size[]
-    size.append(size)
-    size_worksheet.append_row(size)
-    print(size)
-
 def main():
     """
     Run all program functions
@@ -251,7 +239,6 @@ def main():
     size = get_size_selection()
     quantity = get_quantity()
     sales_data = [int(num) for num in juice and quantity]
-    update_order_worksheet(juice, size, quantity)
-    calculate_price()
+    update_order_worksheet(juice, quantity)
 
 main()
