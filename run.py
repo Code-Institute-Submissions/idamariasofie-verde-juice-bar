@@ -1,5 +1,6 @@
 import os
 import gspread
+import pandas as pd
 from google.oauth2.service_account import Credentials
 from termcolor import colored, cprint
 from pyfiglet import figlet_format, Figlet
@@ -18,10 +19,10 @@ SHEET = GSPREAD_CLIENT.open('verde_juice_bar')
 
 class JuiceOrder:
     def __init__(self, juice, size, quantity, price):
-        self.juice.selection = juice
-        self.size.selection = size
-        self.quantity.selection = quantity
-        self.price.selection = price
+        self.juice = juice
+        self.size = size
+        self.quantity = quantity
+        self.price = price
 
 def welcome():
     """
@@ -230,7 +231,7 @@ def update_order_worksheet(juice, size, quantity):
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
-def calculate_price(update_order_worksheet):
+def calculate_price():
     """
     Calculate the prices for the different juice sizes
     to use for the order summary
@@ -239,20 +240,16 @@ def calculate_price(update_order_worksheet):
     size = SHEET.worksheet("order").get_all_values()
     size_row = size[-1]
     print(size_row)
+    return size_row
 
-def order_summary(order_row):
-    """
-    Create a summary of the order, with juice selection,
-    size, quantity and price
-    """
-    print("Calculating order summary...\n")
-    print("Your order contains:")
-    order = SHEET.worksheet("order").get_all_values()
-    print("Total price:")
-
-    if len(order) > 1:
-        order_row = order[-1]
-        print(order_row)
+    if size_row == "S":
+        size_price = 4
+    elif size_row == "M":
+        size_price = 5
+    elif size_row == "L":
+        size_price = 6  
+    print(size_price)
+    return size_price
 
 def main():
     """
@@ -264,7 +261,6 @@ def main():
     quantity = get_quantity()
     sales_data = [int(num) for num in juice and quantity]
     update_order_worksheet(juice, size, quantity)
-    calculate_price(sales_data)
-    order_summary(sales_data)
+    calculate_price()
 
 main()
