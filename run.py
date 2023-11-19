@@ -1,7 +1,7 @@
 import os
 import gspread
 from google.oauth2.service_account import Credentials
-from termcolor import colored, cprint
+from termcolor import colored
 from pyfiglet import figlet_format, Figlet
 from tabulate import tabulate
 
@@ -129,7 +129,7 @@ def validate_juice_data(values):
             raise ValueError(
                 f"Please enter a number (1-5)\n you entered {int(values)}")
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again\n")
+        print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
 
 def get_size_selection():
@@ -181,7 +181,7 @@ def validate_size_data(values):
             raise ValueError(
                 f"Please enter size S, M or L)\n you entered {values}")
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again\n")
+        print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
 
 def get_quantity():
@@ -213,7 +213,7 @@ def validate_quantity_data(values):
             raise ValueError(
                 f"Please enter a number (1-10)\n you entered {quantity}")
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again\n")
+        print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
 
 def update_order_worksheet(juice, quantity):
