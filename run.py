@@ -1,6 +1,5 @@
 import os
 import gspread
-import pandas as pd
 from google.oauth2.service_account import Credentials
 from termcolor import colored, cprint
 from pyfiglet import figlet_format, Figlet
