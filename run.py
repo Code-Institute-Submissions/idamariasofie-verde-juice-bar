@@ -3,6 +3,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from termcolor import colored, cprint
 from pyfiglet import figlet_format, Figlet
+from tabulate import tabulate
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -26,6 +27,7 @@ def welcome():
     """
     Verde Juice bar logo to welcome user
     """
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
     print("Welcome")
     print(r"""
     .------------------------------------------------------------.
@@ -227,6 +229,24 @@ def update_order_worksheet(juice, size, quantity):
     order.append(quantity)
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
+
+def calculate_price(self, size, price):
+    """
+    Calculate the prices for the different juice sizes
+    to use for the order summary
+    """
+    size_selection = get_size_selection()
+    size_price = 0
+    if size_selection == "S":
+        size_price = 4
+    elif size_selection == "M":
+        size_price = 5
+    elif size_selection == "L":
+        size_price = 6
+    else:
+        size_price = 6
+
+    return size_price
 
 def order_summary(order_row):
     """
