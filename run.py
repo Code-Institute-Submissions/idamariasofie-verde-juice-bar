@@ -230,23 +230,15 @@ def update_order_worksheet(juice, size, quantity):
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
-def calculate_price(self, size, price):
+def calculate_price(update_order_worksheet):
     """
     Calculate the prices for the different juice sizes
     to use for the order summary
     """
-    size_selection = get_size_selection()
-    size_price = 0
-    if size_selection == "S":
-        size_price = 4
-    elif size_selection == "M":
-        size_price = 5
-    elif size_selection == "L":
-        size_price = 6
-    else:
-        size_price = 6
-
-    return size_price
+    print("Calculating price..\n")
+    size = SHEET.worksheet("order").get_all_values()
+    size_row = size[-1]
+    print(size_row)
 
 def order_summary(order_row):
     """
@@ -272,6 +264,7 @@ def main():
     quantity = get_quantity()
     sales_data = [int(num) for num in juice and quantity]
     update_order_worksheet(juice, size, quantity)
+    calculate_price(sales_data)
     order_summary(sales_data)
 
 main()
