@@ -130,7 +130,7 @@ def validate_juice_data(values):
             raise ValueError(
                 f"Please enter a number (1-5)\n you entered {int(values)}")
     except ValueError as e:
-        print(Fore.RED + f"Invalid data: {e}, please try again\n")
+        print(f"Invalid data: {e}, please try again\n")
         return False
 
 def get_size_selection():
@@ -140,7 +140,7 @@ def get_size_selection():
     """
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
-    sizes = SHEET.worksheet("size")
+    sizes = SHEET.worksheet("options")
     data = sizes.get_all_values()
 
     # define header names
@@ -180,9 +180,9 @@ def validate_size_data(values):
             return True
         else:
             raise ValueError(
-                f"Please enter size S, M or L)\n you entered {int(values)}")
+                f"Please enter size S, M or L)\n you entered {values}")
     except ValueError as e:
-        print(Fore.RED + f"Invalid data: {e}, please try again\n")
+        print(f"Invalid data: {e}, please try again\n")
         return False
 
 def get_quantity():
@@ -214,10 +214,10 @@ def validate_quantity_data(values):
             raise ValueError(
                 f"Please enter a number (1-10)\n you entered {quantity}")
     except ValueError as e:
-        print(Fore.RED + f"Invalid data: {e}, please try again\n")
+        print(f"Invalid data: {e}, please try again\n")
         return False
 
-def update_order_worksheet(juice, size, quantity):
+def update_order_worksheet(juice, quantity):
     """
     Update order worksheet with juice selection,
     add new row with the list data provided
@@ -226,30 +226,21 @@ def update_order_worksheet(juice, size, quantity):
     order_worksheet = SHEET.worksheet("order")
     order = []
     order.append(juice)
-    order.append(size)
     order.append(quantity)
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
-def calculate_price():
+def calculate_price(size):
     """
     Calculate the prices for the different juice sizes
     to use for the order summary
     """
     print("Calculating price..\n")
-    size = SHEET.worksheet("order").get_all_values()
-    size_row = size[-1]
-    print(size_row)
-    return size_row
-
-    if size_row == "S":
-        size_price = 4
-    elif size_row == "M":
-        size_price = 5
-    elif size_row == "L":
-        size_price = 6  
-    print(size_price)
-    return size_price
+    size_worksheet = SHEET.worksheet("size")
+    size[]
+    size.append(size)
+    size_worksheet.append_row(size)
+    print(size)
 
 def main():
     """
