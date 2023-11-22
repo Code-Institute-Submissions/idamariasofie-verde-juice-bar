@@ -81,19 +81,13 @@ def get_juice_selection():
         juice_selection = input("Enter your order here:\n")
         if validate_juice_data(juice_selection):
             print("Thanks for your order")
-            continue
-        else:
-            print("Your order contains:")
-            for order in user_data:
-                print(colored(juice_selection, "yellow"))
-                print("\n\n")
-            continue
-
-        print("We get you to the next step...")
-        break
+            break
+        
+        print("Your order contains:")
+        print(colored(juice_selection, "yellow"))
+        print("\n\n")
 
     return juice_selection
-
 
 def validate_juice_data(values):
     """
@@ -104,7 +98,7 @@ def validate_juice_data(values):
     error to inform the user.
     """
     try:
-        juice_selection = int(value)
+        juice_selection = int(values)
 
         if 1 <= juice_selection <= 5:
             return True
@@ -127,35 +121,34 @@ def get_size_selection():
 
     # define header names
     col_names = []
-    for ind in range(1, 3):
+    for ind in range(1, 4):
         column = sizes.col_values(ind)
         col_names.append(column[0])
 
     # define size menu content
     sizes_data = []
-    for ind in range(2, 4):
+    for ind in range(1, 4):
         row = sizes.row_values(ind)
-        sizes_data.append(row[:3])
+        sizes_data.append(row[:4])
 
     # print size table
     print(tabulate(sizes_data, headers=col_names, tablefmt="fancygrid") +
           "\n")
+    
     while True:
         print("Please enter your juice size of choice (S, M, L)")
         print("Then press Enter when you are ready.\n")
 
         size_selection = input("Enter your order here:\n")
-        # creates a list with every value inserted by the user
-        user_data = size_selection.split(" ")
+        if validate_size_data(size_selection):
+            print("Thanks for your order")
+            break
+        
+        print("Your order contains:")
+        print(colored(size_selection, "yellow"))
+        print("\n\n")
 
-        if validate_size_data(user_data[0]):
-            print("Thanks for your order...")
-        else:
-            print("We get you to the next step...")
-            time.sleep(1)
-        break
-
-    return user_data[0]
+    return size_selection
 
 def validate_size_data(values):
     """
@@ -185,17 +178,16 @@ def get_quantity():
         print("Please insert the quantity that you want, (not more than 10) ")
         print("Then press Enter when you are ready.\n")
 
-        juice_quantity = input("Enter your order here:\n")
-        # creates a list with every value inserted by the user
-        user_data = juice_quantity.split(" ")
-
-        if validate_quantity_data(user_data[0]):
+        quantity_selection = input("Enter your order here:\n")
+        if validate_quantity_data(quantity_selection):
             print("Thanks for your order")
-        else:
-            print("We get you to the next step...")
             break
 
-    return user_data[0]
+        print("Your order contains:")
+        print(colored(quantity_selection, "yellow"))
+        print("\n\n")
+
+    return quantity_selection
 
 def validate_quantity_data(values):
     """
@@ -205,12 +197,12 @@ def validate_quantity_data(values):
     fulfilled it throws an error to inform the user.
     """
     try:
-        quantity = int(values)
-        if 1 <= quantity <= 10:
+        quantity_selection = int(values)
+        if 1 <= quantity_selection <= 10:
             return True
         else:
             raise ValueError(
-                f"Please enter a number (1-10)\n you entered {quantity}")
+                f"Please enter a number (1-10)\n you entered {values}")
     except ValueError as e:
         print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
