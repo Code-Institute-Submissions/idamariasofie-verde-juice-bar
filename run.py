@@ -88,10 +88,8 @@ def get_juice_selection():
         if validate_juice_data(juice_selection):
             print("Thanks for your order")
             break
-        
-        print("Your order contains:")
-        print(colored(juice_selection, "yellow"))
-        print("\n\n")
+        else:
+            print("Invalid juice selection. Please try again.")
 
     return juice_selection
 
@@ -149,10 +147,8 @@ def get_size_selection():
         if validate_size_data(size_selection):
             print("Thanks for your order")
             break
-        
-        print("Your order contains:")
-        print(colored(size_selection, "yellow"))
-        print("\n\n")
+        else:
+            print("Invalid size selection. Please try again.")
 
     return size_selection
 
@@ -188,10 +184,8 @@ def get_quantity():
         if validate_quantity_data(quantity_selection):
             print("Thanks for your order")
             break
-
-        print("Your order contains:")
-        print(colored(quantity_selection, "yellow"))
-        print("\n\n")
+        else:
+            print("Invalid quantity selection. Please try again.")
 
     return quantity_selection
 
@@ -250,7 +244,7 @@ def get_orders(juice_selection, size_selection, quantity):
 
     if juice_selection in juices:
         #if juice_selection == 1:
-            print(f"You selected {juice_selection}")
+            print(f"You selected juice {juice_selection}")
         #elif juice_selection == 2:
             #print(f"You selected Energized")
         #elif juice_selection == 3:
@@ -291,9 +285,9 @@ def calculate_price(size_selection, quantity_selection):
     else:
         juice_price = 6
 
+    print(f"Total price: {juice_price * quantity_selection}")
     return juice_price * quantity_selection
-
-    
+     
 def main():
     """
     Run all program functions
