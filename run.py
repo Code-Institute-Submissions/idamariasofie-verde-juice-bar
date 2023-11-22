@@ -79,22 +79,20 @@ def get_juice_selection():
         print("Then press Enter when you are ready.\n")
 
         juice_selection = input("Enter your order here:\n")
-        # creates a list with every value inserted by the user
-        user_data = juice_selection.split(" ")
-        if validate_juice_data(user_data):
+        if validate_juice_data(juice_selection):
             print("Thanks for your order")
             continue
         else:
             print("Your order contains:")
             for order in user_data:
-                print(colored(order.get_string(), "yellow"))
+                print(colored(juice_selection, "yellow"))
                 print("\n\n")
             continue
 
         print("We get you to the next step...")
         break
 
-    return user_data[0]
+    return juice_selection
 
 
 def validate_juice_data(values):
@@ -106,10 +104,7 @@ def validate_juice_data(values):
     error to inform the user.
     """
     try:
-        if len(values) != 1:
-            raise ValueError(f"Please enter 1 value you entered {len(values)}")
-
-        juice_selection = int(values[0])
+        juice_selection = int(value)
 
         if 1 <= juice_selection <= 5:
             return True
@@ -153,7 +148,7 @@ def get_size_selection():
         # creates a list with every value inserted by the user
         user_data = size_selection.split(" ")
 
-        if size_selection(user_data, ["S", "M", "L"]):
+        if validate_size_data(user_data[0]):
             print("Thanks for your order...")
         else:
             print("We get you to the next step...")
@@ -194,8 +189,7 @@ def get_quantity():
         # creates a list with every value inserted by the user
         user_data = juice_quantity.split(" ")
 
-        if validate_data(user_data, ["1", "2", "3", "4", "5", "6", "7", "8",
-                                     "9", "10"]):
+        if validate_quantity_data(user_data[0]):
             print("Thanks for your order")
         else:
             print("We get you to the next step...")
@@ -203,15 +197,51 @@ def get_quantity():
 
     return user_data[0]
 
+def validate_quantity_data(values):
+    """
+    This function checks if the values provided by the user, in the functions
+    get_quanity function meet the requirements in the validate_quantity_data.
+    Also validates if the format is correct. If any of the requirements is not
+    fulfilled it throws an error to inform the user.
+    """
+    try:
+        quantity = int(values)
+        if 1 <= quantity <= 10:
+            return True
+        else:
+            raise ValueError(
+                f"Please enter a number (1-10)\n you entered {quantity}")
+    except ValueError as e:
+        print(colored(f"Invalid data: {e}, please try again\n", color="red"))
+        return False
+
+def update_order_worksheet(juice, size, quantity):
+    """
+    Update order worksheet with juice, size and quantity
+    selection, add new row with the list data provided
+    """
+    print("Updating order...\n")
+    order_worksheet = SHEET.worksheet("order")
+    order = []
+    order.append(juice)
+    order.append(size)
+    order.append(quantity)
+    order_worksheet.append_row(order)
+    print("Order updated successfully.\n")
+
 def main():
     """
     Run all program functions
     """
     welcome()
     clear_console()
-    get_juice_selection()
-    validate_juice_data()
-    get_size_selection()
+    juice_selection = get_juice_selection()
+    validate_juice_data(juice_selection)
+    size_selection = get_size_selection()
+    validate_size_data(size_selection)
+    quantity = get_quantity()
+    validate_quantity_data(quantity)
+    update_order_worksheet(juice_selection, size_selection, quantity)
 
 if __name__ == "__main__":
     main()
