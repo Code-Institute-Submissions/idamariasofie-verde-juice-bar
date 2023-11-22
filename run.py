@@ -17,6 +17,12 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('verde_juice_bar')
 
+class JuiceOrder:
+    def __init__(self, juice, size, quantity, price):
+        self.juice = juice
+        self.size = size
+        self.quantity = quantity
+        self.price = price
 
 def clear_console():
     """
@@ -221,6 +227,16 @@ def update_order_worksheet(juice, size, quantity):
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
+def get_orders():
+    """
+    Get all order from worksheet and display
+    these to customer 
+    """
+    orders = SHEET.worksheet("order")
+    show_orders = orders.get_all_values()
+
+    print(show_orders)
+
 def main():
     """
     Run all program functions
@@ -234,6 +250,7 @@ def main():
     quantity = get_quantity()
     validate_quantity_data(quantity)
     update_order_worksheet(juice_selection, size_selection, quantity)
+    get_orders()
 
 if __name__ == "__main__":
     main()
