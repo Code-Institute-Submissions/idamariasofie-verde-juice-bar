@@ -235,10 +235,11 @@ def get_orders():
     print("Calculating order...\n")
     orders = SHEET.worksheet("order").get_all_values()
     orders_data = orders[-1]
-    print(orders_data)
-    
+  
     juices = [1, 2, 3, 4, 5]
-    juice_selection = int(orders_data[0])  
+    sizes = ['S', 'M', 'L']
+    juice_selection = int(orders_data[0])
+    size_selection = orders_data[1].upper()
 
     if juice_selection in juices:
         if juice_selection == 1:
@@ -253,6 +254,11 @@ def get_orders():
             print(f"You selected Keep the doctor away")
     else:
         print("Invalid juice selection")
+
+    if size_selection in sizes:
+        print(f"You selected {size_selection}")
+    else:
+        print("Invalid size selection")
 
 def main():
     """
