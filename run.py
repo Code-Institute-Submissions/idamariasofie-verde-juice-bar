@@ -1,4 +1,5 @@
 import os
+import time
 import gspread
 from google.oauth2.service_account import Credentials
 from termcolor import colored
@@ -23,63 +24,42 @@ class JuiceOrder:
         self.quantity = quantity
         self.price = price
 
+def clear_console():
+    """
+    This function clear the console screen.
+    Code checks whether the operating system
+    is posix (as in Linux or macOS) or not, and runs the
+    appropriate command to clear the screen.
+    code taken from geeksforgeeks.org
+    """
+    if os.name == "posix":
+        _ = os.system("clear")
+    else:
+        _ = os.system("cls")
+
 def welcome():
     """
     Verde Juice bar logo to welcome user
+    parts of code from MiguelSanLeon
+    Holiday survey
     """
-    print(r"""\
-    .------------------------------------------------------------.
-|                                                            |
-|       ,---.                       ,---,                    |
-|      /__./|            __  ,-.  ,---.'|                    |
-| ,---.;  ; |          ,' ,'/ /|  |   | :                    |
-|/___/ \  | |   ,---.  '  | |' |  |   | |   ,---.            |
-|\   ;  \ ' |  /     \ |  |   ,',--.__| |  /     \           |
-| \   \  \: | /    /  |'  :  / /   ,'   | /    /  |          |
-|  ;   \  ' ..    ' / ||  | ' .   '  /  |.    ' / |          |
-|   \   \   ''   ;   /|;  : | '   ; |:  |'   ;   /|          |
-|    \   `  ;'   |  / ||  , ; |   | '/  ''   |  / |          |
-|     :   \ ||   :    | ---'  |   :    :||   :    |          |
-|      '---"  \   \  /         \   \  /   \   \  /           |
-|              `----'           `----'     `----'            |
-|         ,---._                                             |
-|       .-- -.' \                                            |
-|       |    |   :                ,--,                       |
-|       :    ;   |         ,--, ,--.'|                       |
-|       :        |       ,'_ /| |  |,                        |
-|       |    :   :  .--. |  | : `--'_       ,---.     ,---.  |
-|       :         ,'_ /| :  . | ,' ,'|     /     \   /     \ |
-|       |    ;   ||  ' | |  . . '  | |    /    / '  /    /  ||
-|   ___ l         |  | ' |  | | |  | :   .    ' /  .    ' / ||
-| /    /\    J   ::  | : ;  ; | '  : |__ '   ; :__ '   ;   /||
-|/  ../  `..-    ,'  :  `--'   \|  | '.'|'   | '.'|'   |  / ||
-|\    \         ; :  ,      .-./;  :    ;|   :    :|   :    ||
-| \    \      ,'   `--`----'    |  ,   /  \   \  /  \   \  / |
-|  "---....--'                   ---`-'    `----'    `----'  |
-|    ,---,.                                                  |
-|  ,'  .'  \                                                 |
-|,---.' .' |             __  ,-.                             |
-||   |  |: |           ,' ,'/ /|                             |
-|:   :  :  /  ,--.--.  '  | |' |                             |
-|:   |    ;  /       \ |  |   ,'                             |
-||   :     \.--.  .-. |'  :  /                               |
-||   |   . | \__\/: . .|  | '                                |
-|'   :  '; | ," .--.; |;  : |                                |
-||   |  | ; /  /  ,.  ||  , ;                                |
-||   :   / ;  :   .'   \---'                                 |
-||   | ,'  |  ,     .-./                                     |
-|`----'     `--`---'                                         |
-'------------------------------------------------------------'
-""")
-input("Press Enter to continue...")
-os.system('cls' if os.name == 'nt' else "printf '\033c'")
+    welcome_message = SHEET.worksheet('other').col_values(1)
+    clear_console()
+    print("\n")
+    print("\n")
+    print("\n")
+    print(welcome_message[1])
+    print("\n")
+    print("Press Enter to continue...")
+    time.sleep(5)
+    clear_screen()
 
-def get_juice_selection():
+def get_juice_selection(orders):
     """
     Displays juice menu for the user to select from.
     Get juice order value input from the user.
     """
-    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+    clear_console()
 
     juices = SHEET.worksheet("menu")
     data = juices.get_all_values()
@@ -105,10 +85,22 @@ def get_juice_selection():
         print("Then press Enter when you are ready.\n")
 
         juice_selection = input("Enter your order here:\n")
-        if validate_juice_data(juice_selection):
+        # creates a list with every value inserted by the user
+        user_data = juice_selection.split(" ")
+        if validate_data(user_data, ["1", "2", "3", "4", "5"]):
             print("Thanks for your order")
-            break
-    return juice_selection
+            continue
+        else:
+            print("Your order contains:")
+            for order in orders:
+                print(colored(order.get_string(), "yellow"))
+                print("\n\n")
+            continue
+
+        print("We get you to the next step...")
+        break
+
+    return user_data[0]
 
 def validate_juice_data(values):
     """
@@ -137,34 +129,42 @@ def get_size_selection():
     Displays juice menu for the user to select from.
     Get juice order value input from the user.
     """
-    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+    clear_console()
 
     sizes = SHEET.worksheet("options")
     data = sizes.get_all_values()
 
     # define header names
-    col_names = data[0]
+    col_names = []
+    for ind in range(1, 3):
+        column = sizes.col_values(ind)
+        col_names.append(column[0])
 
-    # define menu content and set width for Ingredients column
-    menu_data = data[-5:]
-    for row in menu_data:
-        if (len(row[2]) > 45):
-            last_space_index = row[2][:45].rfind(" ")
-            row[2] = row[2][:last_space_index + 1] + "\n" \
-                + row[2][last_space_index + 1:]
+    # define size menu content 
+    sizes_data = []
+    for ind in range(2, 4):
+        row = sizes.row_values(ind)
+        sizes_data.append(row[:3])
 
-    # print juice menu table
-    print(tabulate(menu_data, headers=col_names, tablefmt="fancy_grid") +
+    # print size table
+    print(tabulate(sizes_data, headers=col_names, tablefmt="fancygrid") +
           "\n")
     while True:
         print("Please enter your juice size of choice (S, M, L)")
         print("Then press Enter when you are ready.\n")
 
         size_selection = input("Enter your order here:\n")
-        if validate_size_data(size_selection):
-            print("Thanks for your order")
-            break
-    return size_selection
+        # creates a list with every value inserted by the user
+        user_data = size_selection.split(" ")
+
+        if validate_data(user_data, ["S", "M", "L"]):
+            print("Thanks for your order...")
+        else:
+            print("We get you to the next step...")
+            time.sleep(1)
+        break
+
+    return user_data[0]
 
 def validate_size_data(values):
     """
@@ -188,15 +188,24 @@ def get_quantity():
     """
     Get quantity value input from the user
     """
+    clear_console()
+
     while True:
         print("Please insert the quantity that you want, (not more than 10) ")
         print("Then press Enter when you are ready.\n")
 
-        quantity = input("Enter your order here:\n")
-        if validate_quantity_data(quantity):
+        juice_quantity = input("Enter your order here:\n")
+        # creates a list with every value inserted by the user
+        user_data = juice_quantity.split(" ")
+
+        if validate_data(user_data, ["1", "2", "3", "4", "5", "6", "7", "8",
+                                     "9", "10"]):
             print("Thanks for your order")
+        else:
+            print("We get you to the next step...")
             break
-    return quantity
+
+    return user_data[0]
 
 def validate_quantity_data(values):
     """
@@ -216,28 +225,126 @@ def validate_quantity_data(values):
         print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
 
-def update_order_worksheet(juice, quantity):
+def update_order_worksheet(juice, size, quantity):
     """
-    Update order worksheet with juice selection,
-    add new row with the list data provided
+    Update order worksheet with juice, size and quantity 
+    selection, add new row with the list data provided
     """
     print("Updating order...\n")
     order_worksheet = SHEET.worksheet("order")
     order = []
     order.append(juice)
+    order.append(size)
     order.append(quantity)
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
+def get_orders(juice, size):
+    orders = SHEET.worksheet("order")
+    get_orders = orders.get_all_values()
+
+    juices = SHEET.worksheet("menu")
+    sizes = SHEET.worksheet("options")
+
+    # get all values from every worksheet
+    juices_data = juices.get_all_values()
+    sizes_data = sizes.get_all_values()
+
+    # get juice type name
+    juice_type_string = " "
+    for row in juices_data[-6:]:
+        if row[0] == juice:
+            juice_type_string = row[1]
+
+    # get juice size name
+    juice_size_string = " "
+    juice_price = 0
+    for row in sizes_data[-3:]:
+        if row[0] == size.upper():
+            juice_size_string = row[1]
+            juice_price = float(row[3])
+
+    print("Juice type:", juice_type_string)
+    print("Size type:", juice_size_string)
+
+    return juice_type_string, juice_size_string
+
+def total_price(orders):
+    """
+    Calculate total price of order
+    """
+    total = 0
+    for order in orders:
+        total += order.price
+    total = round(total, 2)
+    return total
+
+def update_orders(price, order_date, order_time,
+                  duration, status):
+    """
+    Receive integers and strings as parameters to be inserted into orders
+    worksheet
+    """
+    orders = SHEET.worksheet("order")
+    data = []
+    data.append(refference)
+    order_description = ""
+    for order in orders_list:
+        order_description += order.get_string()
+        order_description += "\n"
+    data.append(order_description)
+    data.append(price)
+    data.append(order_date)
+    data.append(order_time)
+    data.append(duration)
+    data.append(status)
+    orders.append_row(data)
+
+def goodbye():
+    """
+    This function creates a goodbye message for the user
+    parts of code from MiguelSanLeon,
+    Holiday survey
+    """
+    selection = 0
+    while selection != 1 and selection != 2:
+        try:
+            print(BLUE + BRIGHT + "Are you sure you want to exit?" + RESET)
+            print(YELLOW + BRIGHT + " 1- YES.")
+            print(" 2- NO." + RESET)
+            selection = int(input(YELLOW + BRIGHT +
+                            "Enter your choice: " + RESET))
+            if selection != 1 and selection != 2:
+                clear_screen()
+                print(RED + "Invalid choice, please enter 1 or 2" + RESET)
+        except ValueError:
+            clear_screen()
+            print(RED + "Invalid input, please enter a valid number" + RESET)
+    clear_console()
+    if selection == 1:
+        goodbye_message = SHEET.worksheet('other').col_values(2)
+        clear_console()
+        print("\n")
+        print("\n")
+        print("\n")
+        print(goodbye_message[1] + RESET)
+        time.sleep(3)
+        exit()
+    else:
+        first_selection()
+
+            
 def main():
     """
     Run all program functions
     """
     welcome()
-    juice = get_juice_selection()
+    juice = get_juice_selection(orders)
     size = get_size_selection()
     quantity = get_quantity()
-    sales_data = [int(num) for num in juice and quantity]
-    update_order_worksheet(juice, quantity)
+    sales_data = [int(num) for num in juice, quantity]
+    update_order_worksheet(juice, size, quantity)
+    get_orders(juice, size)
 
 main()
+
