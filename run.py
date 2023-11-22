@@ -285,7 +285,7 @@ def calculate_price(size_selection, quantity_selection):
     else:
         juice_price = 6
 
-    print(f"Total price: {juice_price * quantity_selection}")
+    print(f"Total price: {juice_price * quantity_selection} €")
     return juice_price * quantity_selection
      
 def main():
