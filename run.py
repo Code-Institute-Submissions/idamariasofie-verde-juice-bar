@@ -230,12 +230,35 @@ def update_order_worksheet(juice, size, quantity):
 def get_orders():
     """
     Get all order from worksheet and display
-    these to customer 
+    these to customer.
     """
     orders = SHEET.worksheet("order")
     show_orders = orders.get_all_values()
 
+    juices = SHEET.worksheet("menu")
+    sizes = SHEET.worksheet("options")
+
+    # get all values from every worksheet
+    juices_data = juices.get_all_values()
+    sizes_data = sizes.get_all_values()
+
+    # get juice type name
+    juice_type_string = " "
+    for row in juices_data[-6:]:
+        if row[0] == juices_data:
+            juice_type_string = row[1]
+
+    # get juice size name
+    juice_size_string = " "
+    for row in sizes_data[-3:]:
+        if row[0] == sizes_data:
+            juice_size_string = row[1]
+
     print(show_orders)
+    print(f"Juice type: {juice_type_string}")
+    print(f"Size type: {juice_size_string}")
+
+    return juice_type_string, juice_size_string
 
 def main():
     """
