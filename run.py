@@ -51,7 +51,7 @@ def welcome():
     print("\n")
     print(welcome_message[1])
     print("\n")
-    print("Press Enter to continue...")
+    print("Loading...")
     time.sleep(5)
     clear_console()
 
@@ -265,9 +265,30 @@ def get_orders():
         print("Invalid size selection")
 
     if quantity_selection in quantities:
-        print(f"You have added {quantity_selection} juices")
+        print(f"You have added {quantity_selection}")
     else:
         print("Invalid quantity")
+    
+    calculate_price(size_selection, quantity_selection)
+    print(calculate_price)
+
+def calculate_price(size_selection, quantity_selection):
+    """
+    Calculate price of juices added so far.
+    """
+    juice_price = 0
+
+    if size_selection == "S":
+        juice_price = 4
+    elif size_selection == "M":
+        juice_price = 5
+    elif size_selection == "L":
+        juice_price = 6
+    else:
+        juice_price = 6
+
+    return juice_price * quantity_selection
+
     
 def main():
     """
@@ -283,6 +304,7 @@ def main():
     validate_quantity_data(quantity)
     update_order_worksheet(juice_selection, size_selection, quantity)
     get_orders()
+    calculate_price(size_selection, quantity_selection)
 
 if __name__ == "__main__":
     main()
