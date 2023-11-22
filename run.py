@@ -227,35 +227,38 @@ def update_order_worksheet(juice, size, quantity):
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
-def get_orders():
+def get_orders(juice_selection, size_selection, quantity):
     """
     Get all order from worksheet.
     Create an instance of JuiceOrder to display. 
     """
     clear_console()
 
-    print("Calculating order...\n")
-    orders = SHEET.worksheet("order").get_all_values()
-    orders_data = orders[-1]
+    #print("Calculating order...\n")
+    #orders = SHEET.worksheet("order").get_all_values()
+    #orders_data = orders[-1]
   
     juices = [1, 2, 3, 4, 5]
     sizes = ['S', 'M', 'L']
     quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    juice_selection = int(orders_data[0])
-    size_selection = orders_data[1].upper()
-    quantity_selection = int(orders_data[2])
+    juice_selection = int(juice_selection)
+    size_selection = size_selection 
+    #size_selection = orders_data[1].upper()
+    quantity_selection = int(quantity)
+    #juice_selection = juice_selection
+    #quantity_selection = quantity
 
     if juice_selection in juices:
-        if juice_selection == 1:
-            print(f"You selected Green Goddess")
-        elif juice_selection == 2:
-            print(f"You selected Energized")
-        elif juice_selection == 3:
-            print(f"You selected Fruits and veggies")
-        elif juice_selection == 4:
-            print(f"You selected Iron woman")
-        elif juice_selection == 5:
-            print(f"You selected Keep the doctor away")
+        #if juice_selection == 1:
+            print(f"You selected {juice_selection}")
+        #elif juice_selection == 2:
+            #print(f"You selected Energized")
+        #elif juice_selection == 3:
+            #print(f"You selected Fruits and veggies")
+        #elif juice_selection == 4:
+            #print(f"You selected Iron woman")
+        #elif juice_selection == 5:
+            #print(f"You selected Keep the doctor away")
     else:
         print("Invalid juice selection")
 
@@ -269,8 +272,9 @@ def get_orders():
     else:
         print("Invalid quantity")
     
-    calculate_price(size_selection, quantity_selection)
-    print(calculate_price)
+    return quantity_selection 
+    # calculate_price(size_selection, quantity_selection)
+    # print(calculate_price)
 
 def calculate_price(size_selection, quantity_selection):
     """
@@ -303,8 +307,10 @@ def main():
     quantity = get_quantity()
     validate_quantity_data(quantity)
     update_order_worksheet(juice_selection, size_selection, quantity)
-    get_orders()
+    #quantity_selection = get_orders()
+    quantity_selection = get_orders(juice_selection, size_selection, quantity) 
     calculate_price(size_selection, quantity_selection)
+    
 
 if __name__ == "__main__":
     main()
