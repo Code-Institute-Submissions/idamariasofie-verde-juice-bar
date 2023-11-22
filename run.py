@@ -232,14 +232,18 @@ def get_orders():
     Get all order from worksheet.
     Create an instance of JuiceOrder to display. 
     """
+    clear_console()
+
     print("Calculating order...\n")
     orders = SHEET.worksheet("order").get_all_values()
     orders_data = orders[-1]
   
     juices = [1, 2, 3, 4, 5]
     sizes = ['S', 'M', 'L']
+    quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     juice_selection = int(orders_data[0])
     size_selection = orders_data[1].upper()
+    quantity_selection = int(orders_data[2])
 
     if juice_selection in juices:
         if juice_selection == 1:
@@ -256,10 +260,15 @@ def get_orders():
         print("Invalid juice selection")
 
     if size_selection in sizes:
-        print(f"You selected {size_selection}")
+        print(f"You selected size {size_selection}")
     else:
         print("Invalid size selection")
 
+    if quantity_selection in quantities:
+        print(f"You have added {quantity_selection} juices")
+    else:
+        print("Invalid quantity")
+    
 def main():
     """
     Run all program functions
