@@ -287,6 +287,49 @@ def calculate_price(size_selection, quantity_selection):
 
     print(f"Total price: {juice_price * quantity_selection} €")
     return juice_price * quantity_selection
+
+def add_to_order():
+    """
+    This function asks the user if they want to
+    add anything else or finalize the order.
+    """
+    clear_console()
+
+    print("\n")
+    print("You're almost ready!")
+    print("Would you like to add anything else?")
+
+    while True:
+        print("Please choose one of the options below:")
+        print("Y to add to your order")
+        print("N to finalize your order")
+        print("R to restart your order")
+        print("B to go back to juice selection")
+
+        answer = input("Write your answer here and"
+                       " press Enter when you're ready:\n")
+
+        # creates a list with every value inserted by the user
+        user_data = answer.split(" ")
+
+        if validate_data(user_data, ["Y", "N", "R", "B"], 1):
+            if user_data[0].upper() == "N":
+                print("Let's finalize your order...")
+                break
+            elif user_data[0].upper() == "R":
+                print("Restarting your order...")
+                time.sleep(1)
+                return "R"
+            elif user_data[0].upper() == "B":
+                print("Taking you back to the juice menu...")
+                time.sleep(1)
+                return "B"
+            else:
+                print("Adding more items to your order...")
+                time.sleep(1)
+                break
+
+    return user_data[0]
      
 def main():
     """
@@ -304,7 +347,7 @@ def main():
     #quantity_selection = get_orders()
     quantity_selection = get_orders(juice_selection, size_selection, quantity) 
     calculate_price(size_selection, quantity_selection)
+    add_to_order()
     
-
 if __name__ == "__main__":
     main()
