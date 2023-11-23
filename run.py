@@ -17,19 +17,21 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('verde_juice_bar')
 
+
 class JuiceOrder:
     def __init__(self, juice, size, quantity, price):
+        """
+        Initialize JuiceOrder with juice, size, quantity, and price.
+        """
         self.juice = juice
         self.size = size
         self.quantity = quantity
         self.price = price
 
+
 def clear_console():
     """
-    This function clears the console screen.
-    The code checks whether the operating system
-    is posix (as in Linux or macOS) or not, and runs the
-    appropriate command to clear the screen.
+    Clear the console screen based on the operating system.
     Code taken from geeksforgeeks.org
     """
     if os.name == "posix":
@@ -40,9 +42,7 @@ def clear_console():
 
 def welcome():
     """
-    Verde Juice bar logo to welcome user
-    parts of code from MiguelSanLeon
-    Holiday survey
+    Display the welcome message and loading screen.
     """
     welcome_message = SHEET.worksheet('other').col_values(1)
     clear_console()
@@ -55,25 +55,24 @@ def welcome():
 
 def get_juice_selection():
     """
-    Displays juice menu for the user to select from.
-    Get juice order value input from the user.
+    Display the juice menu in a grid.
+    And get the user's juice selection.
+    Validates the selection.
     """
     clear_console()
 
     juices = SHEET.worksheet("menu")
     data = juices.get_all_values()
 
-    # define header names
     col_names = data[0]
-
-    # define menu content and set width for Ingredients column
     menu_data = data[-5:]
     for row in menu_data:
         if len(row[2]) > 45:
             last_space_index = row[2][:45].rfind(" ")
-            row[2] = row[2][:last_space_index + 1] + "\n" + row[2][last_space_index + 1:]
+            row[2] = (row[2][:last_space_index + 1] +
+                      "\n" +
+                      row[2][last_space_index + 1:])
 
-    # print juice menu table
     print(tabulate(menu_data, headers=col_names, tablefmt="fancy_grid") + "\n")
 
     while True:
@@ -90,13 +89,11 @@ def get_juice_selection():
 
     return juice_selection
 
+
 def validate_juice_data(values):
     """
-    This function checks if the values provided by the user,
-    in the functions get_juice_selection meet the requirements
-    in the validate_juice_data. Also validates if the format is correct.
-    If any of the requirements is not fulfilled it throws an
-    error to inform the user.
+    Validate the user's juice selection.
+    And raise error message if not valid.
     """
     try:
         juice_selection = int(values)
@@ -110,26 +107,22 @@ def validate_juice_data(values):
         print(colored(f"Invalid data: {e}, please try again\n"))
         return False
 
+
 def get_size_selection():
     """
-    Displays juice menu for the user to select from.
-    Get juice order value input from the user.
+    Display the size menu and get the user's size selection.
+    And validates the selection.
     """
     clear_console()
 
     sizes = SHEET.worksheet("options")
     sizes_data = sizes.get_all_values()
 
-    # define header names
     col_names = sizes_data[0][:3]
-
-    # define size menu content
     sizes_data = sizes_data[1:4]
 
-    # print size table
-    print(tabulate(sizes_data, headers=col_names, tablefmt="fancygrid") +
-          "\n")
-    
+    print(tabulate(sizes_data, headers=col_names, tablefmt="fancygrid") + "\n")
+
     while True:
         print("Please enter your juice size of choice (S, M, L)")
         print("Then press Enter when you are ready.\n")
@@ -143,12 +136,11 @@ def get_size_selection():
 
     return size_selection
 
+
 def validate_size_data(values):
     """
-    This function checks if the values provided by the user, in the functions
-    get_size_selection meet the requirements in the validate_size_data.
-    Also validates if the format is correct. If any of the requirements is not
-    fulfilled it throws an error to inform the user.
+    Validate the user's size selection.
+    Raise error message if not valid.
     """
     try:
         size_selection = values.upper()
@@ -161,9 +153,11 @@ def validate_size_data(values):
         print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
 
+
 def get_quantity():
     """
-    Get quantity value input from the user
+    Get the quantity value input from the user.
+    And validates it.
     """
     clear_console()
 
@@ -180,12 +174,11 @@ def get_quantity():
 
     return quantity_selection
 
+
 def validate_quantity_data(values):
     """
-    This function checks if the values provided by the user, in the functions
-    get_quanity function meet the requirements in the validate_quantity_data.
-    Also validates if the format is correct. If any of the requirements is not
-    fulfilled it throws an error to inform the user.
+    Validate the user's quantity selection.
+    Raise error message if not valid.
     """
     try:
         quantity_selection = int(values)
@@ -198,45 +191,43 @@ def validate_quantity_data(values):
         print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
 
+
 def update_order_worksheet(juice, size, quantity):
     """
-    Update order worksheet with juice, size and quantity
-    selection, add new row with the list data provided
+    Update the order worksheet with juice, size, and quantity selection.
     """
     print("Updating order...\n")
     order_worksheet = SHEET.worksheet("order")
-    order = []
-    order.append(juice)
-    order.append(size)
-    order.append(quantity)
+    order = [juice, size, quantity]
     order_worksheet.append_row(order)
     print("Order updated successfully.\n")
 
+
 def get_orders(juice_selection, size_selection, quantity):
     """
-    Get all order from worksheet.
-    Create an instance of JuiceOrder to display. 
+    Get all orders from the worksheet and displays
+    them to the user.
     """
     juices = {
-        1: "Green Green Goddess", 
-        2: "Energized", 
-        3: "Fruits and veggies", 
-        4: "Iron woman", 
+        1: "Green Green Goddess",
+        2: "Energized",
+        3: "Fruits and veggies",
+        4: "Iron woman",
         5: "Keep the doctor away"
-        }
+    }
 
     juice_selection = int(juice_selection)
 
     selected_juice = juices.get(juice_selection)
     if selected_juice:
-            print(f"You selected juice {selected_juice}")
+        print(f"You selected juice {selected_juice}")
     else:
         print("Invalid juice selection")
 
     sizes = ['S', 'M', 'L']
     quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    size_selection = size_selection 
+    size_selection = size_selection
     quantity_selection = int(quantity)
 
     if size_selection in sizes:
@@ -248,12 +239,14 @@ def get_orders(juice_selection, size_selection, quantity):
         print(f"You have added {quantity_selection} to your order")
     else:
         print("Invalid quantity")
-    
-    return quantity_selection 
+
+    return quantity_selection
+
 
 def calculate_price(size_selection, quantity_selection):
     """
-    Calculate price of juices added so far.
+    Calculate the total price of the juices
+    added to the order.
     """
     juice_price = 0
 
@@ -269,22 +262,21 @@ def calculate_price(size_selection, quantity_selection):
     print(f"Total price: {juice_price * quantity_selection} €")
     return juice_price * quantity_selection
 
+
 def goodbye():
     """
-    Thank you message displays
-    and ends the program
-    parts of code from MiguelSanLeon
-    Holiday survey
+    Displays the thank you message and end the order.
     """
     goodbye_message = SHEET.worksheet('other').col_values(2)
     print("\n")
     print(goodbye_message[1])
     print("\n")
     print("Welcome back...")
-     
+
+
 def main():
     """
-    Run all program functions
+    Run all program functions.
     """
     welcome()
     clear_console()
@@ -295,10 +287,11 @@ def main():
     quantity = get_quantity()
     validate_quantity_data(quantity)
     update_order_worksheet(juice_selection, size_selection, quantity)
-    quantity_selection = get_orders(juice_selection, size_selection, quantity) 
+    quantity_selection = get_orders(juice_selection, size_selection, quantity)
     total_price = calculate_price(size_selection, quantity_selection)
     time.sleep(5)
     goodbye()
     time.sleep(10)
-    
+
+
 main()
