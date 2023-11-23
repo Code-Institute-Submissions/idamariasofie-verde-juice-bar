@@ -121,16 +121,10 @@ def get_size_selection():
     sizes_data = sizes.get_all_values()
 
     # define header names
-    col_names = []
-    for ind in range(1, 4):
-        column = sizes.col_values(ind)
-        col_names.append(column[0])
+    col_names = sizes_data[0][:3]
 
     # define size menu content
-    sizes_data = []
-    for ind in range(1, 4):
-        row = sizes.row_values(ind)
-        sizes_data.append(row[:4])
+    sizes_data = sizes_data[1:4]
 
     # print size table
     print(tabulate(sizes_data, headers=col_names, tablefmt="fancygrid") +
