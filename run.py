@@ -224,8 +224,6 @@ def get_orders(juice_selection, size_selection, quantity):
     Get all order from worksheet.
     Create an instance of JuiceOrder to display. 
     """
-    clear_console()
-
     juices = {
         1: "Green Green Goddess", 
         2: "Energized", 
@@ -261,8 +259,6 @@ def calculate_price(size_selection, quantity_selection):
     """
     Calculate price of juices added so far.
     """
-    clear_console()
-    
     juice_price = 0
 
     if size_selection == "S":
@@ -276,7 +272,6 @@ def calculate_price(size_selection, quantity_selection):
 
     print(f"Total price: {juice_price * quantity_selection} €")
     return juice_price * quantity_selection
-    time.sleep(10)
 
 def goodbye():
     """
@@ -286,13 +281,10 @@ def goodbye():
     Holiday survey
     """
     goodbye_message = SHEET.worksheet('other').col_values(2)
-    clear_console()
     print("\n")
     print(goodbye_message[1])
     print("\n")
     print("Welcome back...")
-    time.sleep(10)
-    clear_console()
      
 def main():
     """
