@@ -1,5 +1,8 @@
 **Verde Juice Bar - Portfolio project 3**
 
+<img src="assets/images/verde.png" alt="verdejuicebar">
+
+
 I have created an order system for the fictional juice bar called Verde Juice Bar.  The main purpose of this program is to facilitate the process of taking orders by introducing a system that automatically populates a google spreadsheet with data about each order for better monitoring. Verde Juice Bar's order system was created entirely with Python and can be used through the terminal implemented with the Code Institute Python Template.
 
 [Link to the program](https://verde-juice-bar-34673e70c54d.herokuapp.com/)
@@ -50,25 +53,23 @@ I have created an order system for the fictional juice bar called Verde Juice Ba
 
 ### Project Goals
 
--  The program should be easy and intuitive to navigate
+- The program should be easy and intuitive to navigate
 - Collect user's order
 - The information that appears on the screen should be relevant for each step of the order 
+- If invalid values are being entered, user should be told what's wrong
 - Instructions should appear to support the user in what values to enter
-- The important information should be highlighted to offer a better user experience
 - The program should update the Orders data sheet with the right values
--  Store data in a Google sheet
+- Store data in a Google sheet
 - The order content and price has to be displayed to the user before the order is finished
--   Show the options and order summary in a tidy and clear way
+- Show the options and order summary in a tidy and clear way
 
-### [](https://github.com/MiguelSanLeon/holidays-survey#user-stories)User Stories
+### User Stories
 
 - As a user, I would like to understand the purpose of the app
 - As a user, I want to see information about the juice options that the restaurant offer  
-- As a user, I want to be able to add more types of juice to my order  
-- As a user, I want to see the content of my order when deciding to add more food
+- As a user, I want to be able to choose the size for each juice
 - As a user, I want to be able to choose the quantity for each juice
-- As a user, I want to see the order summary and the total price 
-- As a user, I would like to be able to discard my selection and do it again
+- As a user, I want to see the order summary and the total price
 
 ### Data Model
 
@@ -77,16 +78,16 @@ The program uses a Google sheet to store the information collected from the orde
 The welcome message and goodbye message are also stored in the Google sheet.
 
 This is the Google sheet used to store the data.
-  
 
+<img src="assets/images/google-sheet.png" alt="googlesheet">
+  
 
 ### Flowchart
 
 [Lucidchart](https://www.lucidchart.com/pages/sv/landing?utm_source=google&utm_medium=cpc&utm_campaign=_chart_sv_allcountries_mixed_search_brand_exact_&km_CPC_CampaignId=1705450947&km_CPC_AdGroupID=69165079880&km_CPC_Keyword=lucidchart&km_CPC_MatchType=e&km_CPC_ExtensionID=&km_CPC_Network=g&km_CPC_AdPosition=&km_CPC_Creative=331143569440&km_CPC_TargetID=kwd-33511936169&km_CPC_Country=1012436&km_CPC_Device=c&km_CPC_placement=&km_CPC_target=&gad_source=1&gclid=CjwKCAiAjfyqBhAsEiwA-UdzJNkln5Zq5SY8j8mUpMPu5oYo1czH5eN1L8eZeoFn11J85IN2aQLl4hoCp8IQAvD_BwE) was used to create the original flowchart for the project. During the development process, small adjustments and input validations were included that are not in the original flowchart.
  
- <img src="assets/images/wireframe.png" alt="lucidchart">
+ <img src="assets/images/lucid-chart.png" alt="lucidchart">
 
- 
 ## Features
 
 ### Existing Features  
@@ -97,36 +98,45 @@ The program has multiple features that were implemented to help the client and t
 
 This screen shows the name of the Juice bar and displays a loading text.
 
-    
+<img src="assets/images/welcome-message.png" alt="welcome">
+
 ### Menu
 
 This screen shows the Verde Juice bar menu, that gives the user five juice options. 
 
 By adding multiple options the user always has a more complete experience allowing them to perform various actions in each menu.
 
-
+<img src="assets/images/menu.png" alt="menu">
 
 ### Size options
 
 In this step the size options display and the user get to enter their selection.  
 
+<img src="assets/images/size-options.png" alt="sizes">
+
 ### Add quantity
 
 Choosing a number for the quantity of juice the client wants is one, of the last steps in completing the order.
 
+<img src="assets/images/quantity.png" alt="quantity">
+
 ### Order summary
+
 Before finishing the order, the user can see their order content and the final price. 
 
+<img src="assets/images/summary.png" alt="summary">
 
-
-    
 ### Goodbye message
 
+Thanks for your order message being displayed at the end of order.
+
+<img src="assets/images/thanks.png" alt="goodbye">
 
 ### Invalid data 
 
+Invalid data error messages are being displayed in a red color, making it easy for user to uderstand what's wrong. 
 
-
+<img src="assets/images/quantity-invalid.png" alt="data">
 
 
 ## Technologies Used
@@ -161,24 +171,25 @@ Before finishing the order, the user can see their order content and the final p
 
 This program was validated using the PEP8 tool provided by Code Institute with no errors.
 
-
-
-
+<img src="assets/images/pep8.png" alt="pep8">
     
 There have been a persistent problem when using Codeanywhere code validation. Since it was not showing the same errors and warnings as the PEP8 tool from Code Institute. After the last mentor session with Rory Patrick Sheridan, he realized Python was not installed in Codeanywhere, and therefore not displaying properly and due to this I had several errors in PEP8 that had to be fixed in the end. 
     
-
 ## Feature Testing
 
 I have manually tested the following features in Codeanywhere and in the Code Institute Heroku terminal. 
 
-
+<img src="assets/images/manual-testing.png" alt="testing">
 
 
 ## Bugs
 
 1.  The error message, The ModelNotFoundError appeared after deploying to Heroku. I had not considered to update the requirements.txt after installing term color. This was solved with Run ‘pip3 freeze > requirements.txt’, making sure the list of dependencies was updated.
+
+<img src="assets/images/bug.png" alt="bug">
+
 2. In connection with Codeanywhere's updates being made Tuesday 21/11- Thursday 23/11 I had problems with pushing to Github. I had to contact Codeanywhere support, who confirmed this was a problem, after some guidance this was solved but, but unfortunately code changes were lost before realizing the problem. After this I made sure to check in Github several times during the day, to check that the commits had been successful. 
+
 3. I had problems with getting the size option menu to display correctly inside the grid. It was showing the headlines two times, leaving out the Large option to be displayed. I managed to fix the full menu being displayed, but had to remove the table design being used, since I could not get it to work otherwise. 
 
 ## Future implementation 
