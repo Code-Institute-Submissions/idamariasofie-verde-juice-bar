@@ -108,7 +108,7 @@ def validate_juice_data(values):
             raise ValueError(
                 f"Please enter a number (1-5)\n you entered {int(values)}")
     except ValueError as e:
-        print(colored(f"Invalid data: {e}, please try again\n"))
+        print(colored(f"Invalid data: {e}, please try again\n, color="red"))
         return False
 
 
@@ -230,7 +230,7 @@ def get_orders(juice_selection, size_selection, quantity):
     if selected_juice:
         print(f"You selected juice {selected_juice}")
     else:
-        print("Invalid juice selection")
+        print(colored("Invalid juice selection", color="red"))
 
     sizes = ['S', 'M', 'L']
     quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -241,12 +241,12 @@ def get_orders(juice_selection, size_selection, quantity):
     if size_selection in sizes:
         print(f"You selected size {size_selection}")
     else:
-        print("Invalid size selection")
+        print(colored("Invalid size selection", color="red"))
 
     if quantity_selection in quantities:
         print(f"You have added {quantity_selection} to your order")
     else:
-        print("Invalid quantity")
+        print(colored("Invalid quantity", color="red"))
 
     return quantity_selection
 
