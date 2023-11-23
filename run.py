@@ -303,6 +303,7 @@ def main():
     update_order_worksheet(juice_selection, size_selection, quantity)
     quantity_selection = get_orders(juice_selection, size_selection, quantity) 
     total_price = calculate_price(size_selection, quantity_selection)
+    time.sleep(5)
     goodbye()
     time.sleep(10)
     
