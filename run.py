@@ -276,6 +276,7 @@ def calculate_price(size_selection, quantity_selection):
 
     print(f"Total price: {juice_price * quantity_selection} €")
     return juice_price * quantity_selection
+    time.sleep(10)
 
 def goodbye():
     """
@@ -306,10 +307,8 @@ def main():
     quantity = get_quantity()
     validate_quantity_data(quantity)
     update_order_worksheet(juice_selection, size_selection, quantity)
-    #quantity_selection = get_orders()
     quantity_selection = get_orders(juice_selection, size_selection, quantity) 
-    calculate_price(size_selection, quantity_selection)
+    total_price = calculate_price(size_selection, quantity_selection)
     goodbye()
     
-if __name__ == "__main__":
-    main()
+main()
