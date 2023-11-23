@@ -108,7 +108,7 @@ def validate_juice_data(values):
             raise ValueError(
                 f"Please enter a number (1-5)\n you entered {int(values)}")
     except ValueError as e:
-        print(colored(f"Invalid data: {e}, please try again\n, color="red"))
+        print(colored(f"Invalid data: {e}, please try again\n", color="red"))
         return False
 
 
@@ -281,7 +281,7 @@ def goodbye():
     print("\n")
     print(goodbye_message[1])
     print("\n")
-    print("Welcome back...")
+    print("See you again soon")
 
 
 def main():
