@@ -47,8 +47,6 @@ def welcome():
     welcome_message = SHEET.worksheet('other').col_values(1)
     clear_console()
     print("\n")
-    print("\n")
-    print("\n")
     print(welcome_message[1])
     print("\n")
     print("Loading...")
@@ -289,12 +287,10 @@ def goodbye():
     goodbye_message = SHEET.worksheet('other').col_values(2)
     clear_console()
     print("\n")
-    print("\n")
-    print("\n")
     print(goodbye_message[1])
     print("\n")
     print("Welcome back...")
-    time.sleep(5)
+    time.sleep(10)
     clear_console()
      
 def main():
