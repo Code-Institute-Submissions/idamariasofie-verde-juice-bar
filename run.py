@@ -43,6 +43,8 @@ def clear_console():
 def welcome():
     """
     Display the welcome message and loading screen.
+    Part of code taken from GitHub,
+    user MiguelSanLeon.
     """
     welcome_message = SHEET.worksheet('other').col_values(1)
     clear_console()
@@ -58,6 +60,8 @@ def get_juice_selection():
     Display the juice menu in a grid.
     And get the user's juice selection.
     Validates the selection.
+    Parts of code taken from GitHub,
+    user useriasminna.
     """
     clear_console()
 
@@ -112,6 +116,8 @@ def get_size_selection():
     """
     Display the size menu and get the user's size selection.
     And validates the selection.
+    Parts of code taken from GitHub,
+    user useriasminna.
     """
     clear_console()
 
@@ -195,6 +201,8 @@ def validate_quantity_data(values):
 def update_order_worksheet(juice, size, quantity):
     """
     Update the order worksheet with juice, size, and quantity selection.
+    Part of code taken from GitHub,
+    user useriasminna.
     """
     print("Updating order...\n")
     order_worksheet = SHEET.worksheet("order")
@@ -266,6 +274,8 @@ def calculate_price(size_selection, quantity_selection):
 def goodbye():
     """
     Displays the thank you message and end the order.
+    Part of code taken from GitHub,
+    user MiguelSanLeon.
     """
     goodbye_message = SHEET.worksheet('other').col_values(2)
     print("\n")
