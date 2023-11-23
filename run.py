@@ -228,31 +228,22 @@ def get_orders(juice_selection, size_selection, quantity):
     """
     clear_console()
 
-    #print("Calculating order...\n")
-    #orders = SHEET.worksheet("order").get_all_values()
-    #orders_data = orders[-1]
-  
-    juices = [1, 2, 3, 4, 5]
+    juices = {
+        1: "Green Green Goddess", 
+        2: "Energized", 
+        3: "Fruits and veggies", 
+        4: "Iron woman", 
+        5: "Keep the doctor away"
+        }
     sizes = ['S', 'M', 'L']
     quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
     juice_selection = int(juice_selection)
     size_selection = size_selection 
-    #size_selection = orders_data[1].upper()
     quantity_selection = int(quantity)
-    #juice_selection = juice_selection
-    #quantity_selection = quantity
 
     if juice_selection in juices:
-        #if juice_selection == 1:
             print(f"You selected juice {juice_selection}")
-        #elif juice_selection == 2:
-            #print(f"You selected Energized")
-        #elif juice_selection == 3:
-            #print(f"You selected Fruits and veggies")
-        #elif juice_selection == 4:
-            #print(f"You selected Iron woman")
-        #elif juice_selection == 5:
-            #print(f"You selected Keep the doctor away")
     else:
         print("Invalid juice selection")
 
@@ -267,13 +258,13 @@ def get_orders(juice_selection, size_selection, quantity):
         print("Invalid quantity")
     
     return quantity_selection 
-    # calculate_price(size_selection, quantity_selection)
-    # print(calculate_price)
 
 def calculate_price(size_selection, quantity_selection):
     """
     Calculate price of juices added so far.
     """
+    clear_console()
+    
     juice_price = 0
 
     if size_selection == "S":
@@ -288,48 +279,23 @@ def calculate_price(size_selection, quantity_selection):
     print(f"Total price: {juice_price * quantity_selection} €")
     return juice_price * quantity_selection
 
-def add_to_order():
+def goodbye():
     """
-    This function asks the user if they want to
-    add anything else or finalize the order.
+    Thank you message displays
+    and ends the program
+    parts of code from MiguelSanLeon
+    Holiday survey
     """
+    goodbye_message = SHEET.worksheet('other').col_values(2)
     clear_console()
-
     print("\n")
-    print("You're almost ready!")
-    print("Would you like to add anything else?")
-
-    while True:
-        print("Please choose one of the options below:")
-        print("Y to add to your order")
-        print("N to finalize your order")
-        print("R to restart your order")
-        print("B to go back to juice selection")
-
-        answer = input("Write your answer here and"
-                       " press Enter when you're ready:\n")
-
-        # creates a list with every value inserted by the user
-        user_data = answer.split(" ")
-
-        if validate_data(user_data, ["Y", "N", "R", "B"], 1):
-            if user_data[0].upper() == "N":
-                print("Let's finalize your order...")
-                break
-            elif user_data[0].upper() == "R":
-                print("Restarting your order...")
-                time.sleep(1)
-                return "R"
-            elif user_data[0].upper() == "B":
-                print("Taking you back to the juice menu...")
-                time.sleep(1)
-                return "B"
-            else:
-                print("Adding more items to your order...")
-                time.sleep(1)
-                break
-
-    return user_data[0]
+    print("\n")
+    print("\n")
+    print(goodbye_message[1])
+    print("\n")
+    print("Welcome back...")
+    time.sleep(5)
+    clear_console()
      
 def main():
     """
@@ -347,7 +313,7 @@ def main():
     #quantity_selection = get_orders()
     quantity_selection = get_orders(juice_selection, size_selection, quantity) 
     calculate_price(size_selection, quantity_selection)
-    add_to_order()
+    goodbye()
     
 if __name__ == "__main__":
     main()
