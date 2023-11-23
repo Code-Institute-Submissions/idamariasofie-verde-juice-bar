@@ -48,7 +48,6 @@ def welcome():
     clear_console()
     print("\n")
     print(welcome_message[1])
-    print("\n")
     print("Loading...")
     time.sleep(5)
     clear_console()
@@ -231,17 +230,20 @@ def get_orders(juice_selection, size_selection, quantity):
         4: "Iron woman", 
         5: "Keep the doctor away"
         }
+
+    juice_selection = int(juice_selection)
+
+    selected_juice = juices.get(juice_selection)
+    if selected_juice:
+            print(f"You selected juice {selected_juice}")
+    else:
+        print("Invalid juice selection")
+
     sizes = ['S', 'M', 'L']
     quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    juice_selection = int(juice_selection)
     size_selection = size_selection 
     quantity_selection = int(quantity)
-
-    if juice_selection in juices:
-            print(f"You selected juice {juice_selection}")
-    else:
-        print("Invalid juice selection")
 
     if size_selection in sizes:
         print(f"You selected size {size_selection}")
@@ -249,7 +251,7 @@ def get_orders(juice_selection, size_selection, quantity):
         print("Invalid size selection")
 
     if quantity_selection in quantities:
-        print(f"You have added {quantity_selection}")
+        print(f"You have added {quantity_selection} to your order")
     else:
         print("Invalid quantity")
     
@@ -302,5 +304,6 @@ def main():
     quantity_selection = get_orders(juice_selection, size_selection, quantity) 
     total_price = calculate_price(size_selection, quantity_selection)
     goodbye()
+    time.sleep(10)
     
 main()
