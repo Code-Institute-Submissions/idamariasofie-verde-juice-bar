@@ -241,7 +241,7 @@ Take input from user:
 [https://www.geeksforgeeks.org/how-to-take-only-a-single-character-as-an-input-in-python/](https://www.geeksforgeeks.org/how-to-take-only-a-single-character-as-an-input-in-python/)
 
 How to use comparison operators: 
-[https://www.youtube.com/watch?v=mrryXQnlYN8]([https://www.youtube.com/watch?v=mrryXQnlYN8])
+[https://www.youtube.com/watch?v=mrryXQnlYN8](https://www.youtube.com/watch?v=mrryXQnlYN8)
 
 Insert tabulate: 
 [https://pypi.org/project/tabulate/](https://pypi.org/project/tabulate/)
