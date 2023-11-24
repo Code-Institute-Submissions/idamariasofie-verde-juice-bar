@@ -3,7 +3,7 @@
 <img src="assets/images/verde.png" alt="verdejuicebar">
 
 
-I have created an order system for the fictional juice bar called Verde Juice Bar.  The main purpose of this program is to facilitate the process of taking orders by introducing a system that automatically populates a google spreadsheet with data about each order for better monitoring. Verde Juice Bar's order system was created entirely with Python and can be used through the terminal implemented with the Code Institute Python Template.
+I have created an ordering system for a fictitious Juice Bar, named Verde Juice Bar. The idea of ​​the system is to make it easier for both customers and the company, by giving them an extra sales channel to receive and handle orders. Verde Juice Bar's order system was created entirely with Python, and can be used through the terminal implemented with the Code Institute Python Template.
 
 [Link to the program](https://verde-juice-bar-34673e70c54d.herokuapp.com/)
 
@@ -53,38 +53,36 @@ I have created an order system for the fictional juice bar called Verde Juice Ba
 
 ### Project Goals
 
-- The program should be easy and intuitive to navigate
-- Collect user's order
-- The information that appears on the screen should be relevant for each step of the order 
-- If invalid values are being entered, user should be told what's wrong
-- Instructions should appear to support the user in what values to enter
-- The program should update the Orders data sheet with the right values
-- Store data in a Google sheet
-- The order content and price has to be displayed to the user before the order is finished
-- Show the options and order summary in a tidy and clear way
+- The program should be easy and intuitive to navigate and use. 
+- Collect user's order.
+- The information that appears on the screen, should be relevant for each step of the order. 
+- If invalid values are being entered, user should be told what's wrong and how to adjust it. 
+- The program should update the Orders data sheet with the right values.
+- Store data in a Google sheet.
+- The order content and price has to be displayed to the user before the order is finished.
+- Show the options and order summary in a tidy and clear way, making it easy for the user. 
 
 ### User Stories
 
-- As a user, I would like to understand the purpose of the app
-- As a user, I want to see information about the juice options that the restaurant offer  
-- As a user, I want to be able to choose the size for each juice
-- As a user, I want to be able to choose the quantity for each juice
-- As a user, I want to see the order summary and the total price
+- As a user, I would like to understand the purpose of the app.
+- As a user, I want to see information about the juice options that the juice bar offers.
+- As a user, I want to be able to choose the size for each juice.
+- As a user, I want to be able to choose the quantity for each juice.
+- As a user, I want to see the order summary and the total price.
 
 ### Data Model
 
 The program uses a Google sheet to store the information collected from the order program. 
-
 The welcome message and goodbye message are also stored in the Google sheet.
 
-This is the Google sheet used to store the data.
+This is the Google sheet used to store the data, divided into four worksheets. 
 
 <img src="assets/images/google-sheet.png" alt="googlesheet">
   
 
 ### Flowchart
 
-[Lucidchart](https://www.lucidchart.com/pages/sv/landing?utm_source=google&utm_medium=cpc&utm_campaign=_chart_sv_allcountries_mixed_search_brand_exact_&km_CPC_CampaignId=1705450947&km_CPC_AdGroupID=69165079880&km_CPC_Keyword=lucidchart&km_CPC_MatchType=e&km_CPC_ExtensionID=&km_CPC_Network=g&km_CPC_AdPosition=&km_CPC_Creative=331143569440&km_CPC_TargetID=kwd-33511936169&km_CPC_Country=1012436&km_CPC_Device=c&km_CPC_placement=&km_CPC_target=&gad_source=1&gclid=CjwKCAiAjfyqBhAsEiwA-UdzJNkln5Zq5SY8j8mUpMPu5oYo1czH5eN1L8eZeoFn11J85IN2aQLl4hoCp8IQAvD_BwE) was used to create the original flowchart for the project. During the development process, small adjustments and input validations were included that are not in the original flowchart.
+[Lucidchart](https://www.lucidchart.com/pages/sv/landing?utm_source=google&utm_medium=cpc&utm_campaign=_chart_sv_allcountries_mixed_search_brand_exact_&km_CPC_CampaignId=1705450947&km_CPC_AdGroupID=69165079880&km_CPC_Keyword=lucidchart&km_CPC_MatchType=e&km_CPC_ExtensionID=&km_CPC_Network=g&km_CPC_AdPosition=&km_CPC_Creative=331143569440&km_CPC_TargetID=kwd-33511936169&km_CPC_Country=1012436&km_CPC_Device=c&km_CPC_placement=&km_CPC_target=&gad_source=1&gclid=CjwKCAiAjfyqBhAsEiwA-UdzJNkln5Zq5SY8j8mUpMPu5oYo1czH5eN1L8eZeoFn11J85IN2aQLl4hoCp8IQAvD_BwE) was used to create the original flowchart for the project. During the development process, small adjustments and input validations have been made that are not in the original flowchart. Still I found it very useful to develop this in the beginning of the project, as aa tool to fall back on and use during the process. 
  
  <img src="assets/images/lucid-chart.png" alt="lucidchart">
 
@@ -92,7 +90,8 @@ This is the Google sheet used to store the data.
 
 ### Existing Features  
 
-The program has multiple features that were implemented to help the client and the restaurant owner as well. For simulating a real-life experience, the system is linked to a  **Google Spreedsheet**  that can be accessed  [here](https://docs.google.com/spreadsheets/d/1ebFoF1ArNrwraT9dMydFFJXQ1KuiSOgbEBwAHAtbK-Q/edit#gid=1680754323).
+The program has multiple features that were implemented to help the client and the juice bar company, in making orders. 
+The system is linked to a  **Google Spreedsheet** where all the orders are stored, it can be accessed [here](https://docs.google.com/spreadsheets/d/1ebFoF1ArNrwraT9dMydFFJXQ1KuiSOgbEBwAHAtbK-Q/edit#gid=1680754323).
 
 ### Title Screen
 
@@ -103,7 +102,6 @@ This screen shows the name of the Juice bar and displays a loading text.
 ### Menu
 
 This screen shows the Verde Juice bar menu, that gives the user five juice options. 
-
 By adding multiple options the user always has a more complete experience allowing them to perform various actions in each menu.
 
 <img src="assets/images/menu.png" alt="menu">
@@ -159,7 +157,7 @@ Invalid data error messages are being displayed in a red color, making it easy f
 
 ### User Stories Testing
 -   As a user, I would like to understand the purpose of the program.
-    -   The program welcomes the user to the Verde Juice Bar order system and shows readable instructions and maintains a smooth path through menus and questions.
+    -   The program welcomes the user to the Verde Juice Bar order system and shows readable instructions on how to proceed. 
 -   As a user, I would like to be able to add juice, size and quantity to the order.
     -   The menus are designed to give these options to the user.
 -   As a user, I would like to be able to review my order.
@@ -235,10 +233,15 @@ All content was created and written by Sofie Andersson, the developer. The juice
 
 [Patorjk ASCII Art Generator](http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20)  This web tool was used to generate the welcome and goodbye messages.
 
+[Am I Responsive](https://ui.dev/amiresponsive) This web tool was used to generate screens showing the program on different devices. 
+
 ### Code 
 
 Take input from user:
 [https://www.geeksforgeeks.org/how-to-take-only-a-single-character-as-an-input-in-python/](https://www.geeksforgeeks.org/how-to-take-only-a-single-character-as-an-input-in-python/)
+
+How to use comparison operators: 
+[https://www.youtube.com/watch?v=mrryXQnlYN8]([https://www.youtube.com/watch?v=mrryXQnlYN8])
 
 Insert tabulate: 
 [https://pypi.org/project/tabulate/](https://pypi.org/project/tabulate/)
